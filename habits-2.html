@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>habits-2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #FFE5D4;
+        }
+        
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        .pub-wrap {
+            padding: 0 500px 80px;
+            background-color: #FFE5D4;
+        }
+        
+        .pub-process {
+            position: relative;
+            height: 35px;
+            padding-top: 100px;
+            padding-bottom: 100px;
+            margin-left: 66px;
+            font-size: 0;
+            color: #fff;
+        }
+        
+        .pub-text {
+            display: flex;
+            /* margin-left: 135px; */
+            margin-bottom: 50px;
+        }
+        
+        .pub-text li+li {
+            margin-left: 110px;
+        }
+        
+        .pub-process:after {
+            position: absolute;
+            top: 67%;
+            left: -5%;
+            z-index: 1;
+            width: 100%;
+            height: 13px;
+            content: "";
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            background-color: #FFFFFF;
+        }
+        
+        .pub-process li {
+            position: relative;
+            z-index: 5;
+            display: inline-block;
+            width: 33%;
+            height: 35px;
+            font-size: 2rem;
+        }
+        
+        .pub-process li:first-child {
+            width: 35px;
+            margin-left: -35px;
+        }
+        
+        .pub-process .ball {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 7;
+            width: 70px;
+            height: 70px;
+            line-height: 65px;
+            content: "";
+            text-align: center;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+            color: #AAAAAA;
+        }
+        
+        .pub-process .active .ball {
+            background-color: #FF8C40;
+            color: #FFFFFF;
+        }
+        
+        .pub-process .active+.active:after {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            z-index: 6;
+            width: 100%;
+            height: 4px;
+            content: "";
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            background-color: #FF8C40;
+        }
+        
+        .question {
+            background-color: #FFFFFF;
+            width: 80%;
+            border-radius: 1vh;
+            border: solid 1px #707070;
+        }
+        /* hide input */
+        
+        input.radio:empty {
+            display: none;
+        }
+        /* style label */
+        
+        input.radio:empty~label {
+            position: relative;
+            float: left;
+            line-height: 1.5em;
+            text-indent: 2.25em;
+            user-select: none;
+        }
+        
+        input.radio:empty~label:before {
+            position: absolute;
+            display: block;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            content: '';
+            width: 1.5em;
+            border: 2px solid #737474;
+            border-radius: 20%;
+        }
+        /* toggle hover */
+        
+        input.radio:hover:not(:checked)~label:before {
+            content: '\1F5F8';
+            text-indent: 0.2em;
+            color: #000000;
+        }
+        
+        input.radio:hover:not(:checked)~label {
+            color: #737474;
+        }
+        /* toggle on */
+        
+        input.radio:checked~label:before {
+            content: "\1F5F8";
+            text-indent: 0.2em;
+            color: #000000;
+        }
+        
+        label {
+            margin-bottom: 0rem !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="m-auto">
+                <ul class="pub-process" id="pubProcess">
+                    <li><span class="ball">1</span></li>
+                    <li><span class="ball">2</span></li>
+                    <li class="active"><span class="ball">3</span></li>
+                    <li><span class="ball">4</span></li>
+                </ul>
+                <ul class="pub-text">
+                    <li><span class="ball-text">基本資訊</span></li>
+                    <li><span class="ball-text">選擇症狀</span></li>
+                    <li><span class="ball-text">生活習慣</span></li>
+                    <li><span class="ball-text">識別結果</span></li>
+                </ul>
+            </div>
+            <div class="question m-auto">
+                <p class="mt-5" style="font-size:28px; text-align:center;">請問你有抽菸的習慣嗎？</p>
+                <div class="row justify-content-between">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <div class="row justify-content-center">
+                            <div class="form-check col-5 p-3 m-2 border shadow-sm">
+                                <input type="radio" name="radio" id="no" class="radio" />
+                                <label for="no">沒有</label>
+                            </div>
+                            <div class="form-check col-5 p-3 m-2 border shadow-sm">
+                                <input type="radio" name="radio" id="yes" class="radio" />
+                                <label for="yes">有</label>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mb-5">
+                            <div class="form-check col-5 p-3 m-2 border shadow-sm">
+                                <input type="radio" name="radio" id="unknow" class="radio" />
+                                <label for="unknow">不清楚</label>
+                            </div>
+                            <div class="form-check col-5 p-3 m-2 border shadow-sm" style="visibility: hidden;">
+                                <input type="radio" name="radio" id="none" class="radio" />
+                                <label for="none"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                <div class="row justify-content-center mb-4">
+                    <div class="col-2">
+                        <button type="button" class="btn btn-outline-light btn-block" style="border: 1px solid #DDDDDD; color: #888888;">返回</button>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-warning btn-block" style="background-color: #FFC29A; color: white;">下一題</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

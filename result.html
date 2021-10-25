@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>result</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="fontawesome-free-5.15.4\css\all.css">
+    <link rel="stylesheet" href="process-bar.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="process-bar.js"></script>
+    <style>
+        body {
+            background-color: #FFE5D4;
+        }
+        
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        .pub-wrap {
+            padding: 0 500px 80px;
+            background-color: #FFE5D4;
+        }
+        
+        .pub-process {
+            position: relative;
+            height: 35px;
+            padding-top: 100px;
+            padding-bottom: 100px;
+            margin-left: 66px;
+            font-size: 0;
+            color: #fff;
+        }
+        
+        .pub-text {
+            display: flex;
+            /* margin-left: 135px; */
+            margin-bottom: 50px;
+        }
+        
+        .pub-text li+li {
+            margin-left: 110px;
+        }
+        
+        .pub-process:after {
+            position: absolute;
+            top: 67%;
+            left: -5%;
+            z-index: 1;
+            width: 100%;
+            height: 13px;
+            content: "";
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            background-color: #FFFFFF;
+        }
+        
+        .pub-process li {
+            position: relative;
+            z-index: 5;
+            display: inline-block;
+            width: 33%;
+            height: 35px;
+            font-size: 2rem;
+        }
+        
+        .pub-process li:first-child {
+            width: 35px;
+            margin-left: -35px;
+        }
+        
+        .pub-process .ball {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 7;
+            width: 70px;
+            height: 70px;
+            line-height: 65px;
+            content: "";
+            text-align: center;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+            color: #AAAAAA;
+        }
+        
+        .pub-process .active .ball {
+            background-color: #FF8C40;
+            color: #FFFFFF;
+        }
+        
+        .pub-process .active+.active:after {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            z-index: 6;
+            width: 100%;
+            height: 4px;
+            content: "";
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            background-color: #FF8C40;
+        }
+        
+        .btn-back {
+            background-color: white;
+            color: black;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        .title {
+            font-weight: bold;
+            font-size: 1.9rem;
+        }
+        
+        .content {
+            font-size: 1.3rem;
+        }
+        
+        .disease {
+            font-size: 1.1rem;
+        }
+        
+        .card-text {
+            color: #707070;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="m-auto">
+                <ul class="pub-process" id="pubProcess">
+                    <li><span class="ball">1</span></li>
+                    <li><span class="ball">2</span></li>
+                    <li><span class="ball">3</span></li>
+                    <li class="active"><span class="ball">4</span></li>
+                </ul>
+                <ul class="pub-text">
+                    <li><span class="ball-text">基本資訊</span></li>
+                    <li><span class="ball-text">選擇症狀</span></li>
+                    <li><span class="ball-text">生活習慣</span></li>
+                    <li><span class="ball-text">識別結果</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <button type="button" class="btn btn-light px-4 btn-back"><i class="fas fa-arrow-left"></i> 返回</button>
+            </div>
+            <div class="col-8 text-center">
+                <p class="title">檢測結果</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-8 text-center">
+                <p class="content">建議您到下列科別就診</p>
+            </div>
+        </div>
+        <div class="row justify-content-around">
+            <div class="card-deck pb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="progress mx-auto" data-value='70'>
+                                    <span class="progress-left">
+                                                  <span class="progress-bar"></span>
+                                    </span>
+                                    <span class="progress-right">
+                                                  <span class="progress-bar"></span>
+                                    </span>
+                                    <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                        <div class="progress-val">70分</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mt-3 ml-3">
+                                <h6 class="card-subtitle mb-2 text-muted">推薦指數70分</h6>
+                                <h5 class="card-title">耳鼻喉科</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="card-text">可能的符合病症</div>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 一般感冒</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 病毒性咽喉炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 過敏性鼻炎</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 異物造成喉嚨或食道損傷</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 流行性感冒</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 急性鼻竇炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 急性鼻竇炎</td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 慢性鼻竇炎</td>
+                                <td> </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="progress mx-auto" data-value='60'>
+                                    <span class="progress-left">
+                                                  <span class="progress-bar"></span>
+                                    </span>
+                                    <span class="progress-right">
+                                                  <span class="progress-bar"></span>
+                                    </span>
+                                    <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                        <div class="progress-val">60分</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mt-3  ml-3">
+                                <h6 class="card-subtitle mb-2 text-muted">推薦指數60分</h6>
+                                <h5 class="card-title">家庭醫學科</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="card-text">可能的符合病症</div>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 一般感冒</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 病毒性咽喉炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 過敏性鼻炎</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 慢性鼻竇炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 流行性感冒</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 扁桃腺炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 急性鼻竇炎</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-deck pb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="progress mx-auto" data-value='70'>
+                                    <span class="progress-left">
+                                                  <span class="progress-bar"></span>
+                                    </span>
+                                    <span class="progress-right">
+                                                  <span class="progress-bar"></span>
+                                    </span>
+                                    <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                        <div class="progress-val">70分</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mt-3 ml-3">
+                                <h6 class="card-subtitle mb-2 text-muted">推薦指數70分</h6>
+                                <h5 class="card-title">耳鼻喉科</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="card-text">可能的符合病症</div>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 一般感冒</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 病毒性咽喉炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 過敏性鼻炎</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 異物造成喉嚨或食道損傷</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 流行性感冒</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 急性鼻竇炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 急性鼻竇炎</td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 慢性鼻竇炎</td>
+                                <td> </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="progress mx-auto" data-value='60'>
+                                    <span class="progress-left">
+                                                  <span class="progress-bar"></span>
+                                    </span>
+                                    <span class="progress-right">
+                                                  <span class="progress-bar"></span>
+                                    </span>
+                                    <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                        <div class="progress-val">60分</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mt-3  ml-3">
+                                <h6 class="card-subtitle mb-2 text-muted">推薦指數60分</h6>
+                                <h5 class="card-title">家庭醫學科</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="card-text">可能的符合病症</div>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 一般感冒</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 病毒性咽喉炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 過敏性鼻炎</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 慢性鼻竇炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 流行性感冒</td>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 扁桃腺炎</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-check" style="color:#0275d8"></i> 急性鼻竇炎</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-around mt-3 mb-5">
+            <div class="col-3">
+                <button type="button" class="btn btn-light btn-block font-weight-bold" style="background-color:#FFFFFF; color: #000000;">重新檢測</button>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-warning btn-block font-weight-bold" style="background-color: #FFAB74; color: white;">列印結果</button>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-warning btn-block font-weight-bold" data-toggle="modal" data-target="#saveModal" style="background-color: #FFAB74; color: white;">保存結果</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<!-- Modal -->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close col-md-1 offset-md-11 pt-2" data-dismiss="modal" aria-label="Close">
+                <i class="far fa-times-circle"></i>
+            </button>
+            <div class="modal-body m-4 text-center">
+                已幫您保存到會員資料中，請查閱。
+            </div>
+            <div class="row justify-content-center">
+                <img src="pharmacist.png" alt="save-result" srcset="">
+            </div>
+        </div>
+    </div>
+</div>
